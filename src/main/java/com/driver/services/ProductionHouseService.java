@@ -14,8 +14,13 @@ public class ProductionHouseService {
     ProductionHouseRepository productionHouseRepository;
 
     public Integer addProductionHouseToDb(ProductionHouseEntryDto productionHouseEntryDto){
+        //Default ratings of the ProductionHouse should be 0
+        //dto to entity;
+        ProductionHouse productionHouse=new ProductionHouse();
+        productionHouse.setName(productionHouse.getName());
+        productionHouse.setRatings(0);
 
-        return  null;
+        return  0;
     }
 
 

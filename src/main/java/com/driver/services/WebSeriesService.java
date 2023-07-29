@@ -24,6 +24,30 @@ public class WebSeriesService {
         //use function written in Repository Layer for the same
         //Dont forget to save the production and webseries Repo
 
+        //checking in db whether webseries exists or not
+       WebSeries series= webSeriesRepository.findBySeriesName(webSeriesEntryDto.getSeriesName());
+       if(series!=null) throw new Exception("Series is already present");
+
+        //step 1 dto to entity conversion
+        WebSeries webSeries=new WebSeries();
+        webSeries.setSeriesName(webSeriesEntryDto.getSeriesName());
+        webSeries.setAgeLimit(webSeriesEntryDto.getAgeLimit());
+        webSeries.setRating(webSeriesEntryDto.getRating());
+        webSeries.setSubscriptionType(webSeriesEntryDto.getSubscriptionType());
+
+        ProductionHouse productionHouse=productionHouseRepository.findById(webSeriesEntryDto.getProductionHouseId()).get();
+        webSeries.setProductionHouse(productionHouse);//webseries class is settled
+
+        //updatiang production house rating and webserieslist
+       int totalWebSeries=productionHouse.getWebSeriesList().size();
+       double newRating=((productionHouse.getRatings()*totalWebSeries)+webSeriesEntryDto.getRating())/(totalWebSeries+1);
+        productionHouse.setRatings(newRating);
+
+        //saving the repos
+        webSeriesRepository.save(webSeries);
+        productionHouseRepository.save(productionHouse);
+
+
         return null;
     }
 
