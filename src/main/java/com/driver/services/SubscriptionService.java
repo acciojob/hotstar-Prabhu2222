@@ -42,9 +42,10 @@ public class SubscriptionService {
             payment=800+250*subscription.getNoOfScreensSubscribed();
         else if(type.equals(SubscriptionType.ELITE))
             payment=1000+350*subscription.getNoOfScreensSubscribed();
+
         subscription.setTotalAmountPaid(payment);
         subscription.setUser(user);
-        Subscription savedSubscription=subscriptionRepository.save(subscription);
+        Subscription savedSubscription=subscriptionRepository.save(subscription);//ist is not saved in discussion
         //updating user class
         //since user is already a saved entity we dont need to dave it again
         user.setSubscription(savedSubscription);
@@ -63,6 +64,7 @@ public class SubscriptionService {
         Subscription subscription=user.getSubscription();
         if(subscription.getSubscriptionType().equals(SubscriptionType.ELITE))
             throw new Exception("Already the best Subscription");
+
         else if(subscription.getSubscriptionType().equals(SubscriptionType.BASIC)){
             int noOfScreens=subscription.getNoOfScreensSubscribed();
             int diffAmount=300+noOfScreens*50;
@@ -89,7 +91,7 @@ public class SubscriptionService {
         //We need to find out total Revenue of hotstar : from all the subscriptions combined
         //Hint is to use findAll function from the SubscriptionDb
         List<Subscription> list=subscriptionRepository.findAll();
-        int revenue=0;
+        Integer revenue=0;
         for(Subscription ele:list){
             revenue+=ele.getTotalAmountPaid();
         }

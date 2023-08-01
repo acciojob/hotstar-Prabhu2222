@@ -17,10 +17,11 @@ public class ProductionHouseService {
         //Default ratings of the ProductionHouse should be 0
         //dto to entity;
         ProductionHouse productionHouse=new ProductionHouse();
-        productionHouse.setName(productionHouse.getName());
+        productionHouse.setName(productionHouseEntryDto.getName());
         productionHouse.setRatings(0);
+        ProductionHouse saved=productionHouseRepository.save(productionHouse);
 
-        return  0;
+        return  saved.getId();
     }
 
 

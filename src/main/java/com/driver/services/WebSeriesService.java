@@ -42,6 +42,7 @@ public class WebSeriesService {
        int totalWebSeries=productionHouse.getWebSeriesList().size();
        double newRating=((productionHouse.getRatings()*totalWebSeries)+webSeriesEntryDto.getRating())/(totalWebSeries+1);
         productionHouse.setRatings(newRating);
+        productionHouse.getWebSeriesList().add(webSeries);//forgetten to add webseries int list,change after discussion
 
         //saving the repos
         webSeriesRepository.save(webSeries);
