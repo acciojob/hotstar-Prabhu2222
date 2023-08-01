@@ -46,7 +46,7 @@ public class WebSeriesService {
 
         //saving the repos
         webSeriesRepository.save(webSeries);
-        productionHouseRepository.save(productionHouse);
+//        productionHouseRepository.save(productionHouse);
 
 
         return null;
